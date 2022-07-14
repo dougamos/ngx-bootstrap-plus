@@ -3,5 +3,130 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-bootstrap-plus": {
+      "projectType": "library",
+      "root": "projects/ngx-bootstrap-plus",
+      "sourceRoot": "projects/ngx-bootstrap-plus/src",
+      "prefix": "ngbp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-bootstrap-plus/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-bootstrap-plus/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-bootstrap-plus/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-bootstrap-plus/src/test.ts",
+            "tsConfig": "projects/ngx-bootstrap-plus/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-bootstrap-plus/karma.conf.js"
+          }
+        }
+      }
+    },
+    "ngx-bootstrap-plus-example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ngx-bootstrap-plus-example",
+      "sourceRoot": "projects/ngx-bootstrap-plus-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-bootstrap-plus-example",
+            "index": "projects/ngx-bootstrap-plus-example/src/index.html",
+            "main": "projects/ngx-bootstrap-plus-example/src/main.ts",
+            "polyfills": "projects/ngx-bootstrap-plus-example/src/polyfills.ts",
+            "tsConfig": "projects/ngx-bootstrap-plus-example/tsconfig.app.json",
+            "assets": [
+              "projects/ngx-bootstrap-plus-example/src/favicon.ico",
+              "projects/ngx-bootstrap-plus-example/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-bootstrap-plus-example/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-bootstrap-plus-example/src/environments/environment.ts",
+                  "with": "projects/ngx-bootstrap-plus-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-bootstrap-plus-example:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-bootstrap-plus-example:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-bootstrap-plus-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-bootstrap-plus-example/src/test.ts",
+            "polyfills": "projects/ngx-bootstrap-plus-example/src/polyfills.ts",
+            "tsConfig": "projects/ngx-bootstrap-plus-example/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-bootstrap-plus-example/karma.conf.js",
+            "assets": [
+              "projects/ngx-bootstrap-plus-example/src/favicon.ico",
+              "projects/ngx-bootstrap-plus-example/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-bootstrap-plus-example/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
